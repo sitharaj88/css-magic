@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun with CSS | Daily CSS Experiments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a12;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #fff;
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent: #667eea;
+            --accent-2: #f093fb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.1), transparent);
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .badge span {
+            color: var(--accent);
+        }
+
+        /* Main */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Demo Grid */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .demo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px -20px rgba(102, 126, 234, 0.3);
+        }
+
+        .demo-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .demo-preview {
+            height: 180px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .demo-info {
+            padding: 20px;
+        }
+
+        .demo-date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .demo-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .demo-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .demo-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .demo-tags span {
+            padding: 4px 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>✨ Fun with CSS</h1>
+        <p>Daily CSS experiments showcasing modern techniques, animations, and creative effects.</p>
+        <div class="badge">Updated <span>3x per week</span></div>
+    </header>
+
+    <main>
+        <h2 class="section-title">📅 January 2026</h2>
+
+        <div class="demo-grid">
+
+            <article class="demo-card">
+                <a href="./2026/01/05-neon-button/index.html">
+                    <div class="demo-preview">🔮</div>
+                    <div class="demo-info">
+                        <div class="demo-date">January 5, 2026</div>
+                        <h3 class="demo-title">Holographic Button</h3>
+                        <p class="demo-desc">Stunning holographic button with aurora background, shimmer effects, and
+                            rainbow border on hover.</p>
+                        <div class="demo-tags">
+                            <span>animation</span>
+                            <span>gradient</span>
+                            <span>glassmorphism</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Add more demo cards here as you create them -->
+
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with 💜 by <a href="https://github.com/sitharaj88" target="_blank">Sitharaj</a></p>
+    </footer>
+
+</body>
+
+</html>

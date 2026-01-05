@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holographic Button | Fun with CSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ========== AURORA BACKGROUND ========== */
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a0a1a 0%, #000 100%);
+            overflow: hidden;
+        }
+
+        .aurora::before,
+        .aurora::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: aurora 15s ease-in-out infinite;
+        }
+
+        .aurora::before {
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(120, 0, 255, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(0, 200, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 0, 150, 0.2) 0%, transparent 40%);
+            animation-delay: 0s;
+        }
+
+        .aurora::after {
+            background:
+                radial-gradient(ellipse at 60% 30%, rgba(0, 255, 200, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 70%, rgba(100, 0, 255, 0.25) 0%, transparent 45%);
+            animation-delay: -7s;
+        }
+
+        @keyframes aurora {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: translate(5%, 5%) rotate(5deg) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-5%, 10%) rotate(-5deg) scale(1);
+            }
+
+            75% {
+                transform: translate(10%, -5%) rotate(3deg) scale(1.05);
+            }
+        }
+
+        /* ========== STARS ========== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.9), transparent),
+                radial-gradient(1px 1px at 230px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 300px 150px, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(1px 1px at 370px 50px, #fff, transparent),
+                radial-gradient(2px 2px at 450px 180px, rgba(255, 255, 255, 0.8), transparent);
+            background-size: 500px 200px;
+            animation: twinkle 5s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 80px;
+        }
+
+        /* ========== TITLE ========== */
+        .title {
+            text-align: center;
+        }
+
+        .title h1 {
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-weight: 700;
+            color: transparent;
+            background: linear-gradient(135deg,
+                    #667eea 0%,
+                    #764ba2 25%,
+                    #f093fb 50%,
+                    #f5576c 75%,
+                    #4facfe 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: holographic 4s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5));
+        }
+
+        @keyframes holographic {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .title p {
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ========== THE ULTIMATE BUTTON ========== */
+        .btn-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .holographic-btn {
+            position: relative;
+            padding: 28px 80px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(135deg,
+                    rgba(102, 126, 234, 0.3) 0%,
+                    rgba(118, 75, 162, 0.3) 50%,
+                    rgba(240, 147, 251, 0.3) 100%);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 20px 50px -20px rgba(102, 126, 234, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Holographic shimmer layer */
+        .holographic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg,
+                    transparent 20%,
+                    rgba(255, 255, 255, 0.1) 35%,
+                    rgba(255, 255, 255, 0.3) 40%,
+                    rgba(255, 255, 255, 0.1) 45%,
+                    transparent 60%);
+            background-size: 250% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+            border-radius: 16px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Rainbow border glow */
+        .holographic-btn::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(90deg,
+                    #ff0080,
+                    #ff8c00,
+                    #40e0d0,
+                    #7b68ee,
+                    #ff0080);
+            background-size: 400% 100%;
+            border-radius: 18px;
+            z-index: -1;
+            animation: rainbowBorder 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes rainbowBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 400% 50%;
+            }
+        }
+
+        .holographic-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Button text */
+        .holographic-btn span {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .holographic-btn span svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effects */
+        .holographic-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                0 30px 60px -20px rgba(102, 126, 234, 0.7),
+                0 0 100px -10px rgba(240, 147, 251, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .holographic-btn:hover span svg {
+            transform: translateX(5px);
+        }
+
+        .holographic-btn:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        /* Glow orb behind button */
+        .glow-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(102, 126, 234, 0.4) 0%,
+                    rgba(118, 75, 162, 0.2) 40%,
+                    transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: blur(40px);
+            animation: orbPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes orbPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Floor reflection */
+        .reflection {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(to bottom,
+                    rgba(102, 126, 234, 0.3) 0%,
+                    transparent 100%);
+            filter: blur(20px);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .btn-container:hover .reflection {
+            width: 280px;
+            height: 60px;
+            opacity: 1;
+        }
+
+        /* ========== FLOATING BUBBLES ========== */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rise 10s infinite ease-in;
+            opacity: 0;
+        }
+
+        .bubble:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 12s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            left: 25%;
+            animation-delay: 2s;
+            animation-duration: 10s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            left: 40%;
+            animation-delay: 4s;
+            animation-duration: 14s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            left: 55%;
+            animation-delay: 1s;
+            animation-duration: 11s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            left: 70%;
+            animation-delay: 3s;
+            animation-duration: 13s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 85%;
+            animation-delay: 5s;
+            animation-duration: 9s;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ========== LABEL ========== */
+        .label {
+            position: fixed;
+            bottom: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .label span {
+            background: linear-gradient(90deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ========== DECORATIVE RINGS ========== */
+        .ring {
+            position: fixed;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .ring:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 6s ease-in-out infinite;
+        }
+
+        .ring:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 6s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        .ring:nth-child(3) {
+            width: 800px;
+            height: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 6s ease-in-out infinite;
+            animation-delay: -4s;
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="aurora"></div>
+    <div class="stars"></div>
+
+    <!-- Decorative Rings -->
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+
+    <!-- Bubbles -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="title">
+            <h1>Pure CSS Magic</h1>
+            <p>No JavaScript Required</p>
+        </div>
+
+        <div class="btn-container">
+            <div class="glow-orb"></div>
+            <button class="holographic-btn">
+                <span>
+                    Get Started
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </span>
+            </button>
+            <div class="reflection"></div>
+        </div>
+    </div>
+
+    <div class="label">Fun with CSS <span>✦</span> 2026</div>
+
+</body>
+
+</html>
