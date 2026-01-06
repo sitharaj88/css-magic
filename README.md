@@ -40,6 +40,7 @@ fun_with_css/
 | Date | Topic | Live Demo | Code | YouTube |
 |------|-------|-----------|------|---------|
 | Jan 05 | Holographic Button | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/05-neon-button/) | [📁 Code](./2026/01/05-neon-button/) | [📺 Watch](https://youtu.be/MSfFdyZASeo) |
+| Jan 07 | Glass Card Carousel | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/07-glass-card/) | [📁 Code](./2026/01/07-glass-card/) | [📺 Watch](#) |
 
 ---
 

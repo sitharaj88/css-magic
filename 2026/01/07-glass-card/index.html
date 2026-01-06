@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Card Carousel | CSS Magic</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --card-width: 360px;
+            --card-height: 220px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0f;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ========== ANIMATED BACKGROUND ========== */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background:
+                /* Grid pattern for glass contrast */
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                /* Base gradient */
+                linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 50%, #1a1a40 100%);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: float1 15s ease-in-out infinite;
+        }
+
+        .bg::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            right: 10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.45) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: float2 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(50px, 30px);
+            }
+        }
+
+        @keyframes float2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-40px, -30px);
+            }
+        }
+
+        /* ========== TITLE ========== */
+        h1 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            opacity: 0.85;
+        }
+
+        /* ========== CAROUSEL ========== */
+        .carousel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        /* ========== GLASS CARD ========== */
+        .card {
+            position: relative;
+            width: var(--card-width);
+            height: var(--card-height);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-top-color: rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            padding: 24px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow:
+                0 15px 35px -5px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* Accent color overlay */
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent, #667eea) 0%, transparent 60%);
+            opacity: 0.08;
+            border-radius: 16px;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Shimmer effect */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::after {
+            left: 130%;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow:
+                0 25px 50px -10px rgba(0, 0, 0, 0.5),
+                0 0 40px -10px var(--accent, #667eea);
+        }
+
+        .card:hover::before {
+            opacity: 0.15;
+        }
+
+        /* Card variants - Vibrant contrasting colors */
+        .card:nth-child(1) {
+            --accent: #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border-color: rgba(245, 158, 11, 0.4);
+            border-top-color: rgba(245, 158, 11, 0.6);
+        }
+
+        .card:nth-child(2) {
+            --accent: #f43f5e;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.25) 0%, rgba(244, 63, 94, 0.05) 100%);
+            border-color: rgba(244, 63, 94, 0.4);
+            border-top-color: rgba(244, 63, 94, 0.6);
+        }
+
+        .card:nth-child(3) {
+            --accent: #06b6d4;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border-color: rgba(6, 182, 212, 0.4);
+            border-top-color: rgba(6, 182, 212, 0.6);
+        }
+
+        /* ========== CARD ELEMENTS ========== */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .chip {
+            width: 48px;
+            height: 36px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffec8b 40%, #daa520 100%);
+            border-radius: 6px;
+            position: relative;
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .chip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 70%;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 3px;
+        }
+
+        .chip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(90deg, transparent 0 8px, rgba(0, 0, 0, 0.1) 8px 9px),
+                repeating-linear-gradient(0deg, transparent 0 8px, rgba(0, 0, 0, 0.1) 8px 9px);
+            border-radius: 6px;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--accent) 0%, #fff 50%, var(--accent) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes shimmerText {
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 200% center;
+            }
+        }
+
+        .card-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin: 25px 0 15px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: 0.8;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .value {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ========== INSTRUCTION ========== */
+        .instruction {
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .carousel {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg"></div>
+
+    <h1>Glass Cards</h1>
+
+    <div class="carousel">
+
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="chip"></div>
+                <div class="brand">VISA</div>
+            </div>
+            <div class="card-number">4522 •••• •••• 1099</div>
+            <div class="card-footer">
+                <div class="info-group">
+                    <span class="label">Card Holder</span>
+                    <span class="value">SITHARAJ S</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Expires</span>
+                    <span class="value">08/29</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="chip"></div>
+                <div class="brand">MASTERCARD</div>
+            </div>
+            <div class="card-number">5412 •••• •••• 7834</div>
+            <div class="card-footer">
+                <div class="info-group">
+                    <span class="label">Card Holder</span>
+                    <span class="value">SITHARAJ S</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Expires</span>
+                    <span class="value">12/28</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="chip"></div>
+                <div class="brand">AMEX</div>
+            </div>
+            <div class="card-number">3782 •••• •••• 0005</div>
+            <div class="card-footer">
+                <div class="info-group">
+                    <span class="label">Card Holder</span>
+                    <span class="value">SITHARAJ S</span>
+                </div>
+                <div class="info-group">
+                    <span class="label">Expires</span>
+                    <span class="value">03/27</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="instruction">Hover on cards</div>
+
+</body>
+
+</html>
