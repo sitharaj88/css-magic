@@ -2,13 +2,13 @@
 
 Daily CSS experiments for LinkedIn posts. Building stunning UI effects with pure CSS.
 
-[![GitHub Pages](https://img.shields.io/badge/Live_Demo-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://sitharaj88.github.io/fun_with_css/)
+[![GitHub Pages](https://img.shields.io/badge/Live_Demo-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://sitharaj88.github.io/css-magic/)
 
 ---
 
 ## 🌐 Live Demo
 
-👉 **[View All Demos](https://sitharaj88.github.io/fun_with_css/)**
+👉 **[View All Demos](https://sitharaj88.github.io/css-magic/)**
 
 ---
 
@@ -37,9 +37,9 @@ fun_with_css/
 
 ### January 2026
 
-| Date | Topic | Live Demo | Code |
-|------|-------|-----------|------|
-| Jan 05 | Holographic Button | [▶️ Demo](https://sitharaj88.github.io/fun_with_css/2026/01/05-neon-button/) | [📁 Code](./2026/01/05-neon-button/) |
+| Date | Topic | Live Demo | Code | YouTube |
+|------|-------|-----------|------|---------|
+| Jan 05 | Holographic Button | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/05-neon-button/) | [📁 Code](./2026/01/05-neon-button/) | [📺 Watch](https://youtu.be/MSfFdyZASeo) |
 
 ---
 
@@ -51,7 +51,7 @@ fun_with_css/
    git add .
    git commit -m "Initial commit - Fun with CSS"
    git branch -M main
-   git remote add origin https://github.com/sitharaj88/fun_with_css.git
+   git remote add origin https://github.com/sitharaj88/css-magic.git
    git push -u origin main
    ```
 
@@ -63,7 +63,7 @@ fun_with_css/
 
 3. **Your demos are live!**
    ```
-   https://sitharaj88.github.io/fun_with_css/
+   https://sitharaj88.github.io/css-magic/
    ```
 
 ---
@@ -86,7 +86,7 @@ fun_with_css/
 
 1. Clone this repo
 2. Open any `index.html` in browser
-3. Or visit the [live demo site](https://sitharaj88.github.io/fun_with_css/)
+3. Or visit the [live demo site](https://sitharaj88.github.io/css-magic/)
 
 ---
 
