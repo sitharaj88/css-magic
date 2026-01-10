@@ -41,6 +41,7 @@ fun_with_css/
 |------|-------|-----------|------|---------|
 | Jan 05 | Holographic Button | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/05-neon-button/) | [📁 Code](./2026/01/05-neon-button/) | [📺 Watch](https://youtu.be/MSfFdyZASeo) |
 | Jan 07 | Glass Card Carousel | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/07-glass-card/) | [📁 Code](./2026/01/07-glass-card/) | [📺 Watch](#) |
+| Jan 10 | Liquid Loading Animation | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/10-liquid-loader/) | [📁 Code](./2026/01/10-liquid-loader/) | [📺 Watch](#) |
 
 ---
 
