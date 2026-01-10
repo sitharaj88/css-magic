@@ -1,0 +1,370 @@
+/* ==================== SYSTEM PARAMETERS ==================== */
+:root {
+    --neon-cyan: #00f2ff;
+    --neon-blue: #0066ff;
+    --hologram-dim: rgba(0, 242, 255, 0.2);
+    --hologram-border: rgba(0, 242, 255, 0.5);
+    --bg-black: #050505;
+    --tech-font: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-black);
+    color: var(--neon-cyan);
+    font-family: var(--tech-font);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==================== HUD OVERLAYS ==================== */
+.hologram-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom,
+            transparent 0px,
+            rgba(0, 0, 0, 0.1) 1px,
+            transparent 2px);
+    background-size: 100% 3px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 101;
+    pointer-events: none;
+}
+
+.noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    z-index: 99;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    opacity: 0.5;
+}
+
+/* ==================== HOLOGRAM STAGE ==================== */
+.hologram-stage {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    animation: flicker 4s infinite;
+}
+
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    5% {
+        opacity: 0.8;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 0.9;
+    }
+
+    90% {
+        opacity: 1;
+    }
+}
+
+/* 3D Wireframe */
+.wireframe-container {
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotate3D 20s linear infinite;
+}
+
+@keyframes rotate3D {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+.cube {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+}
+
+.face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--hologram-border);
+    background: rgba(0, 242, 255, 0.02);
+    box-shadow: inset 0 0 30px var(--hologram-dim);
+}
+
+.front {
+    transform: translateZ(100px);
+}
+
+.back {
+    transform: rotateY(180deg) translateZ(100px);
+}
+
+.right {
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+
+.top {
+    transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+    transform: rotateX(-90deg) translateZ(100px);
+}
+
+.inner-cube {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    border: 2px dashed var(--neon-cyan);
+    transform: translateZ(50px);
+    opacity: 0.5;
+}
+
+/* Pulse Core */
+.pulse-core {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 40px var(--neon-cyan), 0 0 100px var(--neon-blue);
+    z-index: 10;
+}
+
+.core-wave {
+    position: absolute;
+    inset: -20px;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50%;
+    animation: corePulse 2s ease-out infinite;
+    opacity: 0;
+}
+
+.core-wave:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.core-wave:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+@keyframes corePulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Data Rings */
+.data-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--hologram-dim);
+    border-top: 3px solid var(--neon-cyan);
+    animation: ringRotate 4s linear infinite;
+}
+
+.data-ring.outer {
+    width: 400px;
+    height: 400px;
+}
+
+.data-ring.inner {
+    width: 300px;
+    height: 300px;
+    animation-duration: 3s;
+    animation-direction: reverse;
+    border-top-color: var(--neon-blue);
+    border-left: 2px solid var(--hologram-dim);
+}
+
+@keyframes ringRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* HUD HUD */
+.hud-container {
+    position: absolute;
+    bottom: 50px;
+    text-align: center;
+    width: 100%;
+}
+
+.hud-line {
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    margin: 10px auto;
+    animation: hudLineMove 4s ease-in-out infinite;
+}
+
+@keyframes hudLineMove {
+
+    0%,
+    100% {
+        width: 100px;
+        opacity: 0.5;
+    }
+
+    50% {
+        width: 400px;
+        opacity: 1;
+    }
+}
+
+.progress-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    opacity: 0.6;
+}
+
+.percentage {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px var(--neon-cyan);
+    animation: percentagePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes percentagePulse {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Binary Stream Animation */
+.binary-stream {
+    font-size: 0.6rem;
+    margin-top: 15px;
+    opacity: 0.3;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    height: 15px;
+    width: 100%;
+}
+
+.binary-stream::before {
+    content: '010110 110010 001101 101010 111001 000111 101010 111001';
+    position: absolute;
+    left: 0;
+    width: 200%;
+    white-space: nowrap;
+    animation: streamMove 10s linear infinite;
+}
+
+@keyframes streamMove {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Responsive Scaling */
+@media (max-width: 600px) {
+    .hologram-stage {
+        transform: scale(0.7);
+    }
+}
