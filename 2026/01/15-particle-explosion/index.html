@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Explosion Hover | Fun with CSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #ffffff;
+            --bg-gradient-start: #f8f9ff;
+            --bg-gradient-end: #e8ecff;
+            /* Vibrant jewel-tone particle colors */
+            --particle-1: #e63946;
+            /* Ruby Red */
+            --particle-2: #2a9d8f;
+            /* Teal */
+            --particle-3: #f77f00;
+            /* Coral Orange */
+            --particle-4: #7209b7;
+            /* Amethyst Purple */
+            --particle-5: #4361ee;
+            /* Sapphire Blue */
+            --particle-6: #06d6a0;
+            /* Emerald Green */
+            --glow-primary: rgba(230, 57, 70, 0.5);
+            --glow-secondary: rgba(67, 97, 238, 0.5);
+            --text-dark: #1a1a2e;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-light) 50%, var(--bg-gradient-end) 100%);
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ==================== SOFT GRADIENT BACKGROUND ==================== */
+        .cosmos {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(230, 57, 70, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(67, 97, 238, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(114, 9, 183, 0.05) 0%, transparent 70%);
+            z-index: -2;
+        }
+
+        /* Subtle floating dots for light theme */
+        .stars {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(2px 2px at 10% 20%, rgba(67, 97, 238, 0.3), transparent),
+                radial-gradient(2px 2px at 30% 40%, rgba(230, 57, 70, 0.25), transparent),
+                radial-gradient(3px 3px at 50% 10%, rgba(114, 9, 183, 0.2), transparent),
+                radial-gradient(2px 2px at 70% 60%, rgba(6, 214, 160, 0.3), transparent),
+                radial-gradient(2px 2px at 90% 30%, rgba(247, 127, 0, 0.25), transparent),
+                radial-gradient(3px 3px at 15% 80%, rgba(42, 157, 143, 0.2), transparent),
+                radial-gradient(2px 2px at 85% 90%, rgba(67, 97, 238, 0.2), transparent),
+                radial-gradient(2px 2px at 45% 70%, rgba(230, 57, 70, 0.15), transparent);
+            background-size: 300px 300px;
+            animation: floatDots 8s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes floatDots {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .title h1 {
+            font-size: clamp(1.8rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(135deg, var(--particle-1), var(--particle-4), var(--particle-5), var(--particle-2));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .title p {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(26, 26, 46, 0.5);
+        }
+
+        /* ==================== EXPLOSION CONTAINER ==================== */
+        .explosion-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ==================== TRIGGER ELEMENT ==================== */
+        .trigger {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow:
+                0 10px 40px rgba(67, 97, 238, 0.15),
+                0 2px 10px rgba(0, 0, 0, 0.08),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .trigger::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--particle-1), var(--particle-2), var(--particle-3), var(--particle-4), var(--particle-5), var(--particle-6), var(--particle-1));
+            z-index: -1;
+            opacity: 0.7;
+            animation: rotateBorder 4s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .trigger::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            z-index: -1;
+        }
+
+        .trigger span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .trigger:hover {
+            transform: scale(1.1);
+            box-shadow:
+                0 15px 50px var(--glow-primary),
+                0 20px 60px var(--glow-secondary),
+                0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==================== PARTICLES ==================== */
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            transition: none;
+        }
+
+        /* Particle colors */
+        .particle:nth-child(1) {
+            background: var(--particle-1);
+            box-shadow: 0 0 15px var(--particle-1), 0 0 30px var(--particle-1);
+        }
+
+        .particle:nth-child(2) {
+            background: var(--particle-2);
+            box-shadow: 0 0 15px var(--particle-2), 0 0 30px var(--particle-2);
+        }
+
+        .particle:nth-child(3) {
+            background: var(--particle-3);
+            box-shadow: 0 0 15px var(--particle-3), 0 0 30px var(--particle-3);
+        }
+
+        .particle:nth-child(4) {
+            background: var(--particle-4);
+            box-shadow: 0 0 15px var(--particle-4), 0 0 30px var(--particle-4);
+        }
+
+        .particle:nth-child(5) {
+            background: var(--particle-5);
+            box-shadow: 0 0 15px var(--particle-5), 0 0 30px var(--particle-5);
+        }
+
+        .particle:nth-child(6) {
+            background: var(--particle-6);
+            box-shadow: 0 0 15px var(--particle-6), 0 0 30px var(--particle-6);
+        }
+
+        .particle:nth-child(7) {
+            background: var(--particle-1);
+            box-shadow: 0 0 15px var(--particle-1), 0 0 30px var(--particle-1);
+            width: 8px;
+            height: 8px;
+        }
+
+        .particle:nth-child(8) {
+            background: var(--particle-2);
+            box-shadow: 0 0 15px var(--particle-2), 0 0 30px var(--particle-2);
+            width: 8px;
+            height: 8px;
+        }
+
+        .particle:nth-child(9) {
+            background: var(--particle-3);
+            box-shadow: 0 0 15px var(--particle-3), 0 0 30px var(--particle-3);
+            width: 8px;
+            height: 8px;
+        }
+
+        .particle:nth-child(10) {
+            background: var(--particle-4);
+            box-shadow: 0 0 15px var(--particle-4), 0 0 30px var(--particle-4);
+            width: 8px;
+            height: 8px;
+        }
+
+        .particle:nth-child(11) {
+            background: var(--particle-5);
+            box-shadow: 0 0 15px var(--particle-5), 0 0 30px var(--particle-5);
+            width: 6px;
+            height: 6px;
+        }
+
+        .particle:nth-child(12) {
+            background: var(--particle-6);
+            box-shadow: 0 0 15px var(--particle-6), 0 0 30px var(--particle-6);
+            width: 6px;
+            height: 6px;
+        }
+
+        /* ==================== EXPLOSION ANIMATION ON HOVER ==================== */
+        .explosion-container:hover .particle {
+            animation: explode 0.8s ease-out forwards;
+        }
+
+        .explosion-container:hover .particle:nth-child(1) {
+            animation-delay: 0ms;
+            --angle: 0deg;
+            --distance: 120px;
+        }
+
+        .explosion-container:hover .particle:nth-child(2) {
+            animation-delay: 20ms;
+            --angle: 30deg;
+            --distance: 130px;
+        }
+
+        .explosion-container:hover .particle:nth-child(3) {
+            animation-delay: 40ms;
+            --angle: 60deg;
+            --distance: 110px;
+        }
+
+        .explosion-container:hover .particle:nth-child(4) {
+            animation-delay: 60ms;
+            --angle: 90deg;
+            --distance: 140px;
+        }
+
+        .explosion-container:hover .particle:nth-child(5) {
+            animation-delay: 80ms;
+            --angle: 120deg;
+            --distance: 115px;
+        }
+
+        .explosion-container:hover .particle:nth-child(6) {
+            animation-delay: 100ms;
+            --angle: 150deg;
+            --distance: 125px;
+        }
+
+        .explosion-container:hover .particle:nth-child(7) {
+            animation-delay: 30ms;
+            --angle: 180deg;
+            --distance: 100px;
+        }
+
+        .explosion-container:hover .particle:nth-child(8) {
+            animation-delay: 50ms;
+            --angle: 210deg;
+            --distance: 135px;
+        }
+
+        .explosion-container:hover .particle:nth-child(9) {
+            animation-delay: 70ms;
+            --angle: 240deg;
+            --distance: 105px;
+        }
+
+        .explosion-container:hover .particle:nth-child(10) {
+            animation-delay: 90ms;
+            --angle: 270deg;
+            --distance: 120px;
+        }
+
+        .explosion-container:hover .particle:nth-child(11) {
+            animation-delay: 45ms;
+            --angle: 300deg;
+            --distance: 90px;
+        }
+
+        .explosion-container:hover .particle:nth-child(12) {
+            animation-delay: 85ms;
+            --angle: 330deg;
+            --distance: 95px;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform:
+                    translate(calc(cos(var(--angle)) * var(--distance) * 0.6),
+                        calc(sin(var(--angle)) * var(--distance) * 0.6)) scale(1.5);
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translate(calc(cos(var(--angle)) * var(--distance)),
+                        calc(sin(var(--angle)) * var(--distance))) scale(0.5);
+            }
+        }
+
+        /* ==================== PULSE RINGS ==================== */
+        .pulse-ring {
+            position: absolute;
+            border: 2px solid rgba(67, 97, 238, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .pulse-ring:nth-child(14) {
+            width: 160px;
+            height: 160px;
+        }
+
+        .pulse-ring:nth-child(15) {
+            width: 180px;
+            height: 180px;
+        }
+
+        .explosion-container:hover .pulse-ring {
+            animation: pulseOut 0.6s ease-out forwards;
+        }
+
+        .explosion-container:hover .pulse-ring:nth-child(15) {
+            animation-delay: 0.1s;
+        }
+
+        @keyframes pulseOut {
+            0% {
+                opacity: 0.8;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.8);
+            }
+        }
+
+        /* ==================== FOOTER ==================== */
+        .label {
+            position: fixed;
+            bottom: 30px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(26, 26, 46, 0.3);
+        }
+
+        .label span {
+            background: linear-gradient(90deg, var(--particle-1), var(--particle-5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 600px) {
+            .explosion-container {
+                transform: scale(0.85);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="cosmos"></div>
+    <div class="stars"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="title">
+            <h1>Particle Explosion</h1>
+            <p>Pure CSS Magic</p>
+        </div>
+
+        <div class="explosion-container">
+            <!-- Particles -->
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+
+            <!-- Trigger Element -->
+            <div class="trigger">
+                <span>Hover<br>Me</span>
+            </div>
+
+            <!-- Pulse Rings -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+        </div>
+    </div>
+
+    <div class="label">Fun with CSS <span>✦</span> 2026</div>
+</body>
+
+</html>

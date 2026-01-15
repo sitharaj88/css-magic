@@ -42,6 +42,7 @@ fun_with_css/
 | Jan 05 | Holographic Button | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/05-neon-button/) | [📁 Code](./2026/01/05-neon-button/) | [📺 Watch](https://youtu.be/MSfFdyZASeo) |
 | Jan 07 | Glass Card Carousel | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/07-glass-card/) | [📁 Code](./2026/01/07-glass-card/) | [📺 Watch](#) |
 | Jan 11 | Holographic Pulse | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/11-holographic-pulse/) | [📁 Code](./2026/01/11-holographic-pulse/) | [📺 Watch](#) |
+| Jan 15 | Particle Explosion | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/15-particle-explosion/) | [📁 Code](./2026/01/15-particle-explosion/) | [📺 Watch](#) |
 
 ---
 
