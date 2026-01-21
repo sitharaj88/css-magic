@@ -43,6 +43,7 @@ fun_with_css/
 | Jan 07 | Glass Card Carousel | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/07-glass-card/) | [📁 Code](./2026/01/07-glass-card/) | [📺 Watch](#) |
 | Jan 11 | Holographic Pulse | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/11-holographic-pulse/) | [📁 Code](./2026/01/11-holographic-pulse/) | [📺 Watch](#) |
 | Jan 15 | Particle Explosion | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/15-particle-explosion/) | [📁 Code](./2026/01/15-particle-explosion/) | [📺 Watch](#) |
+| Jan 21 | Aurora Borealis | [▶️ Demo](https://sitharaj88.github.io/css-magic/2026/01/21-aurora-borealis/) | [📁 Code](./2026/01/21-aurora-borealis/) | [📺 Watch](#) |
 
 ---
 

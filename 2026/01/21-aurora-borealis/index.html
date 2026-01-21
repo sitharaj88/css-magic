@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Borealis | Fun with CSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #020810;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Deep Space Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 50% 0%, #0a1628 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, #0d0520 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, #051525 0%, transparent 50%),
+                linear-gradient(to bottom, #020810 0%, #030a12 50%, #020508 100%);
+            z-index: 0;
+        }
+
+        /* Stars - Multiple Layers */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stars-1 {
+            background-image:
+                radial-gradient(1px 1px at 10% 10%, #fff, transparent),
+                radial-gradient(1px 1px at 20% 25%, #fff, transparent),
+                radial-gradient(2px 2px at 30% 5%, #fff, transparent),
+                radial-gradient(1px 1px at 40% 15%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1.5px 1.5px at 50% 8%, #fff, transparent),
+                radial-gradient(1px 1px at 60% 20%, #fff, transparent),
+                radial-gradient(2px 2px at 70% 12%, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 80% 18%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 90% 6%, #fff, transparent),
+                radial-gradient(1px 1px at 15% 35%, #fff, transparent),
+                radial-gradient(2px 2px at 25% 42%, rgba(200,220,255,0.9), transparent),
+                radial-gradient(1px 1px at 35% 38%, #fff, transparent),
+                radial-gradient(1px 1px at 45% 45%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 55% 32%, #fff, transparent),
+                radial-gradient(1px 1px at 65% 48%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 75% 35%, #fff, transparent),
+                radial-gradient(1px 1px at 85% 42%, #fff, transparent),
+                radial-gradient(1px 1px at 95% 38%, rgba(255,255,255,0.8), transparent);
+            animation: twinkle-1 4s ease-in-out infinite;
+        }
+
+        .stars-2 {
+            background-image:
+                radial-gradient(1.5px 1.5px at 5% 55%, rgba(150,200,255,0.9), transparent),
+                radial-gradient(1px 1px at 12% 62%, #fff, transparent),
+                radial-gradient(2px 2px at 22% 58%, #fff, transparent),
+                radial-gradient(1px 1px at 32% 52%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 42% 65%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 52% 55%, rgba(255,220,200,0.9), transparent),
+                radial-gradient(1px 1px at 62% 68%, #fff, transparent),
+                radial-gradient(2px 2px at 72% 52%, #fff, transparent),
+                radial-gradient(1px 1px at 82% 62%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 92% 58%, #fff, transparent),
+                radial-gradient(1px 1px at 8% 75%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 18% 82%, rgba(200,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 28% 78%, #fff, transparent),
+                radial-gradient(2px 2px at 38% 72%, #fff, transparent),
+                radial-gradient(1px 1px at 48% 85%, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 58% 75%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 68% 82%, #fff, transparent),
+                radial-gradient(1px 1px at 78% 78%, rgba(255,200,200,0.8), transparent);
+            animation: twinkle-2 5s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        .stars-3 {
+            background-image:
+                radial-gradient(3px 3px at 15% 20%, rgba(255,255,255,0.95), transparent),
+                radial-gradient(2.5px 2.5px at 85% 35%, rgba(200,220,255,0.9), transparent),
+                radial-gradient(3px 3px at 45% 70%, rgba(255,240,200,0.9), transparent),
+                radial-gradient(2px 2px at 70% 15%, rgba(255,255,255,0.85), transparent),
+                radial-gradient(2.5px 2.5px at 25% 85%, rgba(200,255,255,0.9), transparent);
+            animation: twinkle-3 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle-1 {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes twinkle-2 {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes twinkle-3 {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Shooting Stars */
+        .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255,255,255,0.5);
+            opacity: 0;
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+            right: 4px;
+        }
+
+        .shooting-star:nth-child(1) {
+            top: 10%;
+            left: 80%;
+            animation: shoot-1 8s linear infinite;
+            animation-delay: 2s;
+        }
+
+        .shooting-star:nth-child(2) {
+            top: 25%;
+            left: 60%;
+            animation: shoot-2 12s linear infinite;
+            animation-delay: 5s;
+        }
+
+        .shooting-star:nth-child(3) {
+            top: 15%;
+            left: 90%;
+            animation: shoot-1 10s linear infinite;
+            animation-delay: 8s;
+        }
+
+        @keyframes shoot-1 {
+            0% { opacity: 0; transform: translate(0, 0) rotate(-35deg); }
+            2% { opacity: 1; }
+            15% { opacity: 1; transform: translate(-400px, 200px) rotate(-35deg); }
+            16%, 100% { opacity: 0; transform: translate(-400px, 200px) rotate(-35deg); }
+        }
+
+        @keyframes shoot-2 {
+            0% { opacity: 0; transform: translate(0, 0) rotate(-45deg); }
+            2% { opacity: 1; }
+            12% { opacity: 1; transform: translate(-350px, 250px) rotate(-45deg); }
+            13%, 100% { opacity: 0; transform: translate(-350px, 250px) rotate(-45deg); }
+        }
+
+        /* Aurora Container */
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Main Aurora Waves */
+        .aurora {
+            position: absolute;
+            width: 250%;
+            height: 100%;
+            left: -75%;
+            top: -30%;
+        }
+
+        .aurora-1 {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(0, 255, 140, 0.03) 5%,
+                rgba(0, 255, 140, 0.15) 15%,
+                rgba(0, 255, 170, 0.35) 25%,
+                rgba(32, 255, 180, 0.5) 35%,
+                rgba(64, 255, 200, 0.4) 45%,
+                rgba(100, 255, 218, 0.2) 55%,
+                transparent 70%
+            );
+            filter: blur(30px);
+            animation: aurora-wave-1 12s ease-in-out infinite;
+            mix-blend-mode: screen;
+        }
+
+        .aurora-2 {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(120, 0, 255, 0.02) 8%,
+                rgba(138, 43, 226, 0.12) 18%,
+                rgba(160, 60, 255, 0.3) 28%,
+                rgba(180, 100, 255, 0.45) 38%,
+                rgba(200, 140, 255, 0.35) 48%,
+                rgba(220, 180, 255, 0.15) 60%,
+                transparent 75%
+            );
+            filter: blur(40px);
+            animation: aurora-wave-2 15s ease-in-out infinite;
+            animation-delay: -3s;
+            mix-blend-mode: screen;
+        }
+
+        .aurora-3 {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(0, 200, 255, 0.02) 10%,
+                rgba(0, 220, 255, 0.1) 20%,
+                rgba(0, 240, 255, 0.25) 30%,
+                rgba(50, 255, 255, 0.4) 40%,
+                rgba(100, 255, 255, 0.3) 50%,
+                rgba(150, 255, 255, 0.15) 62%,
+                transparent 78%
+            );
+            filter: blur(35px);
+            animation: aurora-wave-3 18s ease-in-out infinite;
+            animation-delay: -6s;
+            mix-blend-mode: screen;
+        }
+
+        .aurora-4 {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(255, 0, 150, 0.01) 12%,
+                rgba(255, 50, 180, 0.08) 22%,
+                rgba(255, 100, 200, 0.2) 32%,
+                rgba(255, 150, 220, 0.3) 42%,
+                rgba(255, 180, 230, 0.2) 52%,
+                transparent 68%
+            );
+            filter: blur(50px);
+            animation: aurora-wave-4 20s ease-in-out infinite;
+            animation-delay: -9s;
+            mix-blend-mode: screen;
+        }
+
+        .aurora-5 {
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(255, 200, 50, 0.01) 15%,
+                rgba(255, 180, 0, 0.06) 25%,
+                rgba(255, 200, 50, 0.15) 35%,
+                rgba(255, 220, 100, 0.2) 45%,
+                transparent 60%
+            );
+            filter: blur(45px);
+            animation: aurora-wave-5 16s ease-in-out infinite;
+            animation-delay: -4s;
+            mix-blend-mode: screen;
+        }
+
+        /* Aurora Wave Animations */
+        @keyframes aurora-wave-1 {
+            0%, 100% {
+                transform: translateX(-15%) skewX(-8deg) scaleY(1) scaleX(1);
+                opacity: 0.9;
+            }
+            25% {
+                transform: translateX(5%) skewX(5deg) scaleY(1.15) scaleX(1.05);
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(15%) skewX(8deg) scaleY(0.85) scaleX(0.95);
+                opacity: 0.85;
+            }
+            75% {
+                transform: translateX(-5%) skewX(-5deg) scaleY(1.1) scaleX(1.02);
+                opacity: 0.95;
+            }
+        }
+
+        @keyframes aurora-wave-2 {
+            0%, 100% {
+                transform: translateX(15%) skewX(8deg) scaleY(1.1);
+                opacity: 0.85;
+            }
+            33% {
+                transform: translateX(-10%) skewX(-6deg) scaleY(0.9);
+                opacity: 1;
+            }
+            66% {
+                transform: translateX(5%) skewX(4deg) scaleY(1.2);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes aurora-wave-3 {
+            0%, 100% {
+                transform: translateX(-10%) skewX(-6deg) scaleY(0.95);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(12%) skewX(7deg) scaleY(1.15);
+                opacity: 1;
+            }
+        }
+
+        @keyframes aurora-wave-4 {
+            0%, 100% {
+                transform: translateX(8%) skewX(5deg) scaleY(1.05);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateX(-8%) skewX(-5deg) scaleY(0.9);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes aurora-wave-5 {
+            0%, 100% {
+                transform: translateX(-5%) skewX(-3deg) scaleY(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(10%) skewX(6deg) scaleY(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Aurora Curtain Effect */
+        .aurora-curtain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .curtain-strip {
+            position: absolute;
+            width: 8px;
+            background: linear-gradient(
+                to top,
+                transparent 0%,
+                rgba(0, 255, 170, 0.4) 20%,
+                rgba(100, 255, 218, 0.7) 40%,
+                rgba(160, 100, 255, 0.6) 60%,
+                rgba(0, 200, 255, 0.4) 80%,
+                transparent 100%
+            );
+            filter: blur(3px);
+            transform-origin: top center;
+        }
+
+        .curtain-strip:nth-child(1) { left: 5%; height: 45%; top: 10%; animation: curtain-sway 4s ease-in-out infinite; }
+        .curtain-strip:nth-child(2) { left: 12%; height: 55%; top: 8%; animation: curtain-sway 5s ease-in-out infinite; animation-delay: -0.5s; }
+        .curtain-strip:nth-child(3) { left: 18%; height: 50%; top: 12%; animation: curtain-sway 4.5s ease-in-out infinite; animation-delay: -1s; }
+        .curtain-strip:nth-child(4) { left: 25%; height: 60%; top: 5%; animation: curtain-sway 5.5s ease-in-out infinite; animation-delay: -1.5s; }
+        .curtain-strip:nth-child(5) { left: 32%; height: 52%; top: 10%; animation: curtain-sway 4.2s ease-in-out infinite; animation-delay: -2s; }
+        .curtain-strip:nth-child(6) { left: 40%; height: 58%; top: 7%; animation: curtain-sway 5.2s ease-in-out infinite; animation-delay: -2.5s; }
+        .curtain-strip:nth-child(7) { left: 48%; height: 48%; top: 15%; animation: curtain-sway 4.8s ease-in-out infinite; animation-delay: -3s; }
+        .curtain-strip:nth-child(8) { left: 55%; height: 62%; top: 5%; animation: curtain-sway 5.8s ease-in-out infinite; animation-delay: -3.5s; }
+        .curtain-strip:nth-child(9) { left: 63%; height: 54%; top: 9%; animation: curtain-sway 4.3s ease-in-out infinite; animation-delay: -4s; }
+        .curtain-strip:nth-child(10) { left: 70%; height: 50%; top: 12%; animation: curtain-sway 5.3s ease-in-out infinite; animation-delay: -4.5s; }
+        .curtain-strip:nth-child(11) { left: 78%; height: 56%; top: 8%; animation: curtain-sway 4.6s ease-in-out infinite; animation-delay: -5s; }
+        .curtain-strip:nth-child(12) { left: 85%; height: 46%; top: 14%; animation: curtain-sway 5.6s ease-in-out infinite; animation-delay: -5.5s; }
+        .curtain-strip:nth-child(13) { left: 92%; height: 52%; top: 10%; animation: curtain-sway 4.4s ease-in-out infinite; animation-delay: -6s; }
+
+        @keyframes curtain-sway {
+            0%, 100% {
+                transform: skewX(0deg) scaleY(1);
+                opacity: 0.5;
+            }
+            25% {
+                transform: skewX(8deg) scaleY(1.1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: skewX(-5deg) scaleY(0.95);
+                opacity: 0.7;
+            }
+            75% {
+                transform: skewX(-8deg) scaleY(1.05);
+                opacity: 0.85;
+            }
+        }
+
+        /* Lake Reflection */
+        .lake {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(
+                to top,
+                rgba(5, 10, 20, 0.98) 0%,
+                rgba(5, 10, 20, 0.9) 20%,
+                rgba(10, 20, 40, 0.7) 50%,
+                transparent 100%
+            );
+            z-index: 5;
+        }
+
+        .lake-reflection {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to top,
+                rgba(0, 255, 170, 0.08) 0%,
+                rgba(160, 100, 255, 0.05) 30%,
+                rgba(0, 200, 255, 0.03) 60%,
+                transparent 100%
+            );
+            animation: lake-shimmer 8s ease-in-out infinite;
+        }
+
+        .lake-ripple {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 3px,
+                    rgba(255, 255, 255, 0.02) 4px,
+                    transparent 5px
+                );
+            animation: ripple-move 6s linear infinite;
+        }
+
+        @keyframes lake-shimmer {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes ripple-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Silhouette Mountains */
+        .mountains {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        .mountain {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .mountain-1 {
+            left: -8%;
+            width: 0;
+            height: 0;
+            border-left: 180px solid transparent;
+            border-right: 180px solid transparent;
+            border-bottom: 220px solid #040810;
+        }
+
+        .mountain-2 {
+            left: 12%;
+            width: 0;
+            height: 0;
+            border-left: 220px solid transparent;
+            border-right: 220px solid transparent;
+            border-bottom: 180px solid #030608;
+        }
+
+        .mountain-3 {
+            left: 38%;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 250px solid #040810;
+        }
+
+        .mountain-4 {
+            left: 60%;
+            width: 0;
+            height: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 200px solid #030608;
+        }
+
+        .mountain-5 {
+            left: 82%;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 170px solid #040810;
+        }
+
+        /* Trees */
+        .trees {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            z-index: 7;
+            pointer-events: none;
+            padding: 0 20px;
+        }
+
+        .tree {
+            position: relative;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 70px solid #020408;
+        }
+
+        .tree::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 25px;
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 55px solid #020408;
+        }
+
+        .tree::after {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 55px;
+            width: 6px;
+            height: 25px;
+            background: #020408;
+        }
+
+        .tree:nth-child(odd) {
+            transform: scale(1.2);
+        }
+
+        .tree:nth-child(3n) {
+            transform: scale(0.8);
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float-up linear infinite;
+        }
+
+        .particle:nth-child(1) { left: 8%; width: 3px; height: 3px; background: rgba(0, 255, 170, 0.8); animation-duration: 15s; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 15%; width: 4px; height: 4px; background: rgba(160, 100, 255, 0.7); animation-duration: 18s; animation-delay: -3s; }
+        .particle:nth-child(3) { left: 25%; width: 3px; height: 3px; background: rgba(0, 200, 255, 0.8); animation-duration: 14s; animation-delay: -6s; }
+        .particle:nth-child(4) { left: 35%; width: 5px; height: 5px; background: rgba(0, 255, 170, 0.6); animation-duration: 20s; animation-delay: -9s; }
+        .particle:nth-child(5) { left: 45%; width: 3px; height: 3px; background: rgba(255, 100, 200, 0.7); animation-duration: 16s; animation-delay: -12s; }
+        .particle:nth-child(6) { left: 55%; width: 4px; height: 4px; background: rgba(0, 255, 200, 0.8); animation-duration: 17s; animation-delay: -15s; }
+        .particle:nth-child(7) { left: 65%; width: 3px; height: 3px; background: rgba(160, 100, 255, 0.6); animation-duration: 19s; animation-delay: -18s; }
+        .particle:nth-child(8) { left: 75%; width: 5px; height: 5px; background: rgba(0, 200, 255, 0.7); animation-duration: 15s; animation-delay: -21s; }
+        .particle:nth-child(9) { left: 85%; width: 3px; height: 3px; background: rgba(0, 255, 170, 0.8); animation-duration: 18s; animation-delay: -24s; }
+        .particle:nth-child(10) { left: 92%; width: 4px; height: 4px; background: rgba(255, 180, 100, 0.7); animation-duration: 16s; animation-delay: -27s; }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+                transform: translateY(95vh) scale(1);
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 200;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(
+                90deg,
+                #00ffaa,
+                #00ffd5,
+                #a066ff,
+                #ff66cc,
+                #00ccff,
+                #00ffaa
+            );
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: title-gradient 10s linear infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 170, 0.4));
+        }
+
+        @keyframes title-gradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.3rem);
+            font-weight: 300;
+            letter-spacing: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        /* Glowing Card */
+        .aurora-card {
+            display: inline-block;
+            padding: 2rem 3.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .aurora-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 170, 0.3),
+                transparent,
+                rgba(160, 100, 255, 0.3),
+                transparent,
+                rgba(0, 200, 255, 0.3),
+                transparent
+            );
+            background-size: 400% 400%;
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0;
+            animation: border-glow 8s linear infinite;
+            transition: opacity 0.5s ease;
+        }
+
+        .aurora-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes border-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .aurora-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow:
+                0 30px 60px rgba(0, 255, 170, 0.15),
+                0 0 100px rgba(0, 255, 170, 0.1),
+                0 0 40px rgba(160, 100, 255, 0.1);
+            border-color: rgba(0, 255, 170, 0.3);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, #00ffaa, #00ccff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            color: #00ffaa;
+            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 170, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                letter-spacing: 0.2em;
+            }
+
+            .subtitle {
+                letter-spacing: 0.4em;
+            }
+
+            .aurora-card {
+                padding: 1.5rem 2rem;
+                margin: 0 1rem;
+            }
+
+            .curtain-strip {
+                display: none;
+            }
+
+            .back-link {
+                top: 1rem;
+                left: 1rem;
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../../../index.html" class="back-link">← Back to Gallery</a>
+
+    <!-- Background -->
+    <div class="space-bg"></div>
+
+    <!-- Stars -->
+    <div class="stars-container">
+        <div class="stars stars-1"></div>
+        <div class="stars stars-2"></div>
+        <div class="stars stars-3"></div>
+    </div>
+
+    <!-- Shooting Stars -->
+    <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <!-- Aurora Layers -->
+    <div class="aurora-container">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+        <div class="aurora aurora-4"></div>
+        <div class="aurora aurora-5"></div>
+
+        <!-- Aurora Curtain -->
+        <div class="aurora-curtain">
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+            <div class="curtain-strip"></div>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Lake & Ground -->
+    <div class="lake">
+        <div class="lake-reflection"></div>
+        <div class="lake-ripple"></div>
+    </div>
+
+    <!-- Mountains -->
+    <div class="mountains">
+        <div class="mountain mountain-1"></div>
+        <div class="mountain mountain-2"></div>
+        <div class="mountain mountain-3"></div>
+        <div class="mountain mountain-4"></div>
+        <div class="mountain mountain-5"></div>
+    </div>
+
+    <!-- Trees -->
+    <div class="trees">
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+        <div class="tree"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1 class="title">Aurora</h1>
+        <p class="subtitle">Northern Lights</p>
+
+        <div class="aurora-card">
+            <div class="card-content">
+                <h2 class="card-title">Pure CSS Magic</h2>
+                <p class="card-text">
+                    Experience the mesmerizing beauty of the Aurora Borealis,<br>
+                    crafted entirely with CSS animations and gradients.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
